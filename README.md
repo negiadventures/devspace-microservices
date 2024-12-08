@@ -86,3 +86,26 @@ devspace deploy
 Access the applications at `http://localhost:<port>`.
 
 ---
+
+### Additional commands
+Check running pods
+```bash
+kubectl get pods -n development
+```
+Check running services
+```bash
+kubectl get services -n development
+```
+Check status of a particular pod
+```bash
+kubectl describe pod next-js-7979dd8787-xtjqm -n development
+```
+Check logs for a pod
+```bash
+kubectl logs next-js-7979dd8787-xtjqm -n development
+```
+NOTE: development is the namespace used for the project, if you want to rename it, create and use a new namespace :
+```bash
+devspace use namespace yournamespace --create
+```
+Also, make sure to update devspace.yaml file.
