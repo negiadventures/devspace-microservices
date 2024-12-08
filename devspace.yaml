@@ -1,0 +1,62 @@
+version: v1beta10
+
+images:
+  python:
+    image: python-proj
+    context: ./python
+    dockerfile: ./python/Dockerfile
+    tags:
+      - latest
+  next-js:
+    image: next-js-proj
+    context: ./next-js
+    dockerfile: ./next-js/Dockerfile
+    tags:
+      - latest
+  nest-js:
+    image: nest-js-proj
+    context: ./nestJS
+    dockerfile: ./nestJS/Dockerfile
+    tags:
+      - latest
+
+deployments:
+  - name: python
+    namespace: development
+    helm:
+      componentChart: true
+      values:
+        containers:
+          - image: python-proj:latest
+        service:
+          type: NodePort # Set the service type
+          ports:
+            - port: 8080
+              targetPort: 8080
+              nodePort: 30001
+  - name: next-js
+    namespace: development
+    helm:
+      componentChart: true
+      values:
+        containers:
+          - image: next-js-proj:latest
+        service:
+          type: NodePort # Set the service type
+          ports:
+            - port: 3000
+              targetPort: 3000
+              nodePort: 30003
+  - name: nest-js
+    namespace: development
+    helm:
+      componentChart: true
+      values:
+        containers:
+          - image: nest-js-proj:latest
+        service:
+          type: NodePort # Set the service type
+          ports:
+            - port: 3000
+              targetPort: 3000
+              nodePort: 30005
